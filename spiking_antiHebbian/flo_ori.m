@@ -60,7 +60,7 @@ elseif step==1
         for j=1:para.layer
             neuron_V{j}(neuron_V{j}>=para.spike)=para.V_reset;
             %             neuron_V{j}=neuron_V{j}+dt./para.tau_V.*(para.E_L-neuron_V{j}+para.Rm.*neuron_P{j}+para.Rm*neuron_I{j});
-            neuron_V{j}=neuron_V{j}+dt./para.tau_V.*(para.E_L-neuron_V{j}+para.Rm.*min(para.I0,max(0,neuron_P{j}+neuron_I{j})));
+            neuron_V{j}=neuron_V{j}+dt./para.tau_V.*(para.E_L-neuron_V{j}+para.Rm.*neuron_P{j});
             neuron_V{j}((neuron_V{j}>=para.V_th))=para.spike;
             u{j}(:,:,iT)=neuron_V{j}==para.spike;
         end;
@@ -77,7 +77,7 @@ elseif step==1
         for j=1:para.layer
             neuron_V{j}(neuron_V{j}>=para.spike)=para.V_reset;
             %             neuron_V{j}=neuron_V{j}+dt./para.tau_V.*(para.E_L-neuron_V{j}+para.Rm.*neuron_P{j}+para.Rm*neuron_I{j});
-            neuron_V{j}=neuron_V{j}+dt./para.tau_V.*(para.E_L-neuron_V{j}+para.Rm.*neuron_P{j});
+            neuron_V{j}=neuron_V{j}+dt./para.tau_V.*(para.E_L-neuron_V{j}+para.Rm.*min(para.I0,max(0,neuron_P{j}+neuron_I{j})));
             neuron_V{j}((neuron_V{j}>=para.V_th))=para.spike;
             u{j}(:,:,iT)=neuron_V{j}==para.spike;
         end;
@@ -92,10 +92,10 @@ elseif step==1
     %%%%%%%%%%%%%
     for iT=window/dt+1:1:(time+window)/dt
         for j=1:para.layer-1
-            chan{j}=chan{j}-para.A_pos(j)*u{j}(:,:,iT)*(sum(u{j+1}(:,:,iT-window/dt:1:iT+window/dt).*permute(f_STDP(-window:dt:window),[1,3,2]),3))';
+            chan{j}=chan{j}+para.A_pos(j)*u{j}(:,:,iT)*(sum(u{j+1}(:,:,iT-window/dt:1:iT+window/dt).*permute(f_STDP(-window:dt:window),[1,3,2]),3))';
         end;
         for j=1:para.layer-1
-            chan_Inv{j}=chan_Inv{j}-para.A_pos(j)*(sum(u{j}(:,:,iT-window/dt:1:iT+window/dt).*permute(f_STDP(-window:dt:window),[1,3,2]),3))*u{j+1}(:,:,iT)';
+            chan_Inv{j}=chan_Inv{j}+para.A_pos(j)*(sum(u{j}(:,:,iT-window/dt:1:iT+window/dt).*permute(f_STDP(-window:dt:window),[1,3,2]),3))*u{j+1}(:,:,iT)';
         end;
     end;
 end;

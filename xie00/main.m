@@ -11,6 +11,7 @@ para.tau_syn=100;
 para.A_STDP=1.5*10^-3.5;
 para.tau=120;
 para.lambda=120;
+para.dW_range=0.003;
 
 Intv_0=50;
 Intv_p=12;
@@ -34,15 +35,17 @@ S_0(1:Intv_0:T/dt+1)=1;
 t_pb=[1000,2000,3000];
 for i=1:length(t_pb)
     S_p((t_pb(i):Intv_p:t_pb(i)+last_p)/dt)=1;
-    if_cht((t_pb(i)+lambda-tau:dt:t_pb(i)+last_p+lambda)/dt)=false;
+    if_cht((t_pb(i)+para.lambda-para.tau:dt:t_pb(i)+last_p+para.lambda)/dt)=false;
 end;
 t_mb=[4000,5000,6000];
 for i=1:length(t_mb)
     S_m((t_mb(i):Intv_m:t_mb(i)+last_m)/dt)=1;
-    if_cht((t_mb(i)+lambda-tau:dt:t_mb(i)+last_p+lambda)/dt)=false;
+    if_cht((t_mb(i)+para.lambda-para.tau:dt:t_mb(i)+last_p+para.lambda)/dt)=false;
 end;
-W_i=0.05;
-W_i0=0.4;
+a=1/para.C_m/log((para.V_reset-para.V_E)/(para.V_th-para.V_E));
+b=para.g_L/para.C_m/log((para.V_reset-para.V_E)/(para.V_th-para.V_E))*(1-((para.V_reset-para.V_L)/(para.V_reset-para.V_E)-(para.V_th-para.V_L)/(para.V_th-para.V_E))/log((para.V_reset-para.V_E)/(para.V_th-para.V_E)));
+W_i=1/a;
+W_i0=-b/a*Intv_0;
 W_ip=0.1;
 W_im=0.05;
 
