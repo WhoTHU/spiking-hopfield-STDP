@@ -1,4 +1,4 @@
-global weight weight_Inv his_V his_I
+global weight weight_Inv his_V his_P
 
 para.E_L=-70;
 para.V_th=-54;
@@ -13,7 +13,7 @@ para.spike=0;
 para.I0=10;
 para.A_pos=[0.002,0.002];para.A_neg=para.A_pos.*1.012;
 para.layer=3;
-para.n_layer=[28*28,500,10];
+para.n_layer=[28*28,200,10];
 para.weight_dec=0;
 
 ifreset=true;
@@ -23,10 +23,10 @@ gmax=[5,5];
 gmin=-gmax;
 gmax_Inv=gmax;
 gmin_Inv=-gmax_Inv;
-train_num=60000;
-test_num=10000;
+train_num=6000;
+test_num=1000;
 batch_size=100;
-epo=100;
+epo=80;
 itr=[20,10];
 beta=1;
 test_fre=1;

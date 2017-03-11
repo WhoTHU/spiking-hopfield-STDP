@@ -44,6 +44,8 @@ for iEpo=1:epo
         for j=1:layer-1
             weight{j}=max(gmin(j),min(gmax(j),(1-para.A_pos(j)*para.weight_dec)*weight{j}+chan{j}));
             weight_Inv{j}=max(gmin_Inv(j),min(gmax_Inv(j),(1-para.A_pos(j)*para.weight_dec)*weight_Inv{j}+chan_Inv{j}));
+%             weight{j}=max(gmin(j),min(gmax(j),(1-para.A_pos(j)*para.weight_dec)*weight{j}+chan{j}+chan_Inv{j}));
+%             weight_Inv{j}=weight{j};
         end;
     end;
     err_train(iEpo)=err_train(iEpo)/train_num;

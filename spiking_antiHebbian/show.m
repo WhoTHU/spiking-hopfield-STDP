@@ -16,6 +16,19 @@ hist(weight_Inv{1}(:),gmin(1):(gmax_Inv(1)-gmin_Inv(1))/100:gmax_Inv(1));
 subplot(2,2,4);
 hist(weight_Inv{2}(:),gmin(2):(gmax_Inv(2)-gmin_Inv(2))/100:gmax_Inv(2));
 
+for i=1:layer-1
+    figure;
+    subplot(2,2,1);
+    scatter(weight_his{i}(1,:),weight_his{i}(epo,:))
+    subplot(2,2,2);
+    hist(weight_his{i}(epo,:)-weight_his{i}(1,:),100)
+    subplot(2,2,3);
+    scatter(weight_his_Inv{i}(1,:),weight_his_Inv{i}(epo,:))
+    subplot(2,2,4);
+    hist(weight_his_Inv{i}(epo,:)-weight_his_Inv{i}(1,:),100)
+end;
+
+
 figure;
 subplot(3,1,1);
 hist(neuron_P{1}(:),0:para.I0/100:para.I0);
@@ -84,45 +97,20 @@ hist(std(weight_his{1}),100);
 figure;
 hist(std(weight_his{2}),100);
 
+figure;hist(sum((weight_his_Inv{1}(2:end,:)-weight_his_Inv{1}(1:end-1,:)).^2,1),100);
 th=0;
 filt1=zeros(epo,1);
 k1=0;
-for i=1:size(weight_his{1},2)
-    if std(weight_his{1}(:,i))>th
+for i=1:size(weight_his_Inv{1},2)
+    if sum((weight_his_Inv{1}(2:end,i)-weight_his_Inv{1}(1:end-1,i)).^2,1)>th
         k1=k1+1;
-        filt1(:,k1)=weight_his{1}(:,i);
+        filt1(:,k1)=weight_his_Inv{1}(:,i);
     end;
 end;
-
-filt2=zeros(epo,1);
-k2=0;
-for i=1:size(weight_his{2},2)
-    if std(weight_his{2}(:,i))>th
-        k2=k2+1;
-        filt2(:,k2)=weight_his{2}(:,i);
-    end;
-end;
-x=filt1;plot(1:epo,x(:,random('unid',size(x,2),20,1)))
+figure;hist(sum(sign(filt1(2:end,:)-filt1(1:end-1,:)),1),-epo:2:epo);
+figure;x=filt1;plot(1:epo,x(:,random('unid',size(x,2),20,1)));
 
 hist(sum(neuron_P{2}>1,2),100)
-
-weight_chan=cell(layer-1,1);
-weight_chan_Inv=cell(layer-1,1);
-for j=1:layer-1
-    weight_chan{j}=zeros(size(weight{j}));
-    weight_chan{j}=weight_his{j}(epo,:)-weight_his{j}(1,:);
-    weight_chan_Inv{j}=zeros(size(weight_Inv{j}));
-    weight_chan_Inv{j}=weight_his_Inv{j}(epo,:)-weight_his_Inv{j}(1,:);
-end;
-figure;
-subplot(2,2,1);
-scatter(weight_his{1}(1,:),weight_chan{1}(:));
-subplot(2,2,2);
-scatter(weight_his{2}(1,:),weight_chan{2}(:));
-subplot(2,2,3);
-scatter(weight_his_Inv{1}(1,:),weight_chan_Inv{1}(:));
-subplot(2,2,4);
-scatter(weight_his_Inv{2}(1,:),weight_chan_Inv{2}(:));
 
 neuron_stt=cell(layer);
 for j=1:layer

@@ -1,6 +1,6 @@
 function [neuron_P,neuron_V,chan,chan_Inv,pred]=flo(time,s0_P,s0_V,beta,ext,para,step)
 
-global weight weight_Inv his_V his_G
+global weight weight_Inv 
 neuron_P=s0_P;
 neuron_V=cell(size(neuron_P));
 dt=para.dt;
@@ -13,12 +13,12 @@ chan=cell(para.layer-1,1);
 chan_Inv=cell(para.layer-1,1);
 u=cell(para.layer,1);
 if step==0
-    his_V=cell(para.layer,1);
-    his_G=cell(para.layer,1);
-    for j=1:para.layer
-        his_V{j}=zeros([size(neuron_V{j}),time/dt+1]);
-        his_G{j}=zeros([size(neuron_P{j}),time/dt+1]);
-    end;
+%     his_V=cell(para.layer,1);
+%     his_G=cell(para.layer,1);
+%     for j=1:para.layer
+%         his_V{j}=zeros([size(neuron_V{j}),time/dt+1]);
+%         his_G{j}=zeros([size(neuron_P{j}),time/dt+1]);
+%     end;
     count=0;
     for i=0:dt:time
         for j=1:para.layer
@@ -33,10 +33,10 @@ if step==0
         j=para.layer;
         neuron_P{j}=min(para.I0,max(0,neuron_P{j}+dt./para.tau_I.*(-neuron_P{j}+weight{j-1}'*u{j-1}./dt)));
         count=count+u{para.layer};
-        for j=2:para.layer
-            his_V{j}(:,:,int32(i/dt)+1)=neuron_V{j};
-            his_G{j}(:,:,int32(i/dt)+1)=neuron_P{j};
-        end;
+%         for j=2:para.layer
+%             his_V{j}(:,:,int32(i/dt)+1)=neuron_V{j};
+%             his_G{j}(:,:,int32(i/dt)+1)=neuron_P{j};
+%         end;
     end;
     [~,pred]=max(count);
     %     [~,pred]=max(neuron_P{para.layer});
