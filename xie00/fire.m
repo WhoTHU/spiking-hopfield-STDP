@@ -16,7 +16,7 @@ r_0=zeros(1,T/dt+1);
 r_p=zeros(1,T/dt+1);
 r_m=zeros(1,T/dt+1);
 g_E=zeros(1,T/dt+1);
-g_I=zeros(1,T/dt+1);
+g_I=zeros(1,T/dt+1);    
 Inp=zeros(1,T/dt+1);
 
 W=zeros(1,T/dt+1);

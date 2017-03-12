@@ -23,15 +23,16 @@ para.num=2;
 para.Intv_0=50;
 para.Intv_p=12;
 para.Intv_m=12;
-para.last_p=Intv_p*5;
-para.last_m=Intv_m*5;
+para.rep=5;
 
 learn_time=200;
 learn_Intv=1000;
 
 weit=random('uniform',0,1,para.num);
 weit0=random('uniform',0,1,para.num,1);
+weit_p=0.1;
+weits_m=55.5/14.5*W_ip;
 
-multy_fire(para.weit,weit0,learn_time,learn_Intv);
+multy_fire(para,weit,weit0,weit_p,weit_m,learn_time,learn_Intv);
 
 
