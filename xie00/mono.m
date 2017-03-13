@@ -13,7 +13,7 @@ para.alpha_S=1;
 para.tau_s0=100;
 para.tau_sp=5;
 para.tau_sm=5;
-para.A_STDP=1.5*10^-3;
+para.A_STDP=1.5*10^-4;
 para.tau=120;
 para.lambda=120;
 para.dW_range=0.003;
@@ -58,13 +58,13 @@ W_i0=0.3;
 W_ip=0.1;
 W_im=55.5/14.5*W_ip;
 
-[S,V,W,W_0,g_E,g_I,Inp,r]=fire(para,S_0,S_p,S_m,W_i,W_i0,W_ip,W_im,if_ch);
+[S,V,W,W_0,g_E,g_I,Inp,r]=mono_fire(para,S_0,S_p,S_m,W_i,W_i0,W_ip,W_im,if_ch);
 
 
-test;
-W_i=W(end)
-W_i0=W_0(end)
-test
+mono_test;
+W_i=W(end);
+W_i0=W_0(end);
+mono_test;
 
 
 figure;
