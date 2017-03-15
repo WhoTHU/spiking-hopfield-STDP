@@ -13,11 +13,11 @@ para.alpha_S=1;
 para.tau_s0=100;
 para.tau_sp=5;
 para.tau_sm=5;
-para.A_STDP=1.5*10^-4;
+para.A_STDP=1.5*10^-5;
 para.tau=120;
 para.lambda=120;
 para.dW_range=0.003;
-para.dt=0.1;
+para.dt=0.5;
 para.wind=1000;
 para.con=0.2;
 
@@ -28,7 +28,7 @@ last_p=Intv_p*5;
 last_m=Intv_m*5;
 
 
-learn_time=200;
+learn_time=1000;
 wind=para.wind;
 T=wind*learn_time;
 dt=para.dt;
@@ -51,7 +51,7 @@ a=1/para.C_m/log((para.V_reset-para.V_E)/(para.V_th-para.V_E));
 b=para.g_L/para.C_m/log((para.V_reset-para.V_E)/(para.V_th-para.V_E))*(1-((para.V_reset-para.V_L)/(para.V_reset-para.V_E)-(para.V_th-para.V_L)/(para.V_th-para.V_E))/log((para.V_reset-para.V_E)/(para.V_th-para.V_E)));
 % W_i=1/a;
 % W_i0=-b/a*Intv_0;
-W_i=0.10;
+W_i=0.1;
 W_i0=0.3;
 % W_i=0.1245;
 % W_i0=0.35;

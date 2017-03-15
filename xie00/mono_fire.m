@@ -25,15 +25,13 @@ W(1)=W_i;
 W_0(1)=W_i0;
 W_p=W_ip*ones(1,T/dt+1);
 W_m=W_im*ones(1,T/dt+1);
-dW_0=0;
-dW=0;
 
 for It=1:T/dt
     if mod(It-1,int32(para.wind/dt))==0
-        if r(It)>0.3
-            r(It)=0.1;
+        if r(It)>0.5
+            r(It)=0.2;
         elseif r(It)<0.01
-            r(It)=0.1;
+            r(It)=0.2;
             V(It)=para.V_reset;
         end;
 %     W_0(It+1)=W_0(It)+sigmoid(dW_0,para.dW_range);
