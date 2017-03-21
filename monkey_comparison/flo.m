@@ -1,24 +1,13 @@
-function [neuron]=flo(time,para,beta,observe,s0)
+function [ neuron,otpt_nr ] = flo( neuron,ipt,time,eps)
+%UNTITLED3 此处显示有关此函数的摘要
+%   此处显示详细说明
 
-global weight weight_Inv
+global weight b ipt_weight otpt_weight
 
-neuron=s0;
-for i=1:time
-    for j=2:para.layer-1
-        neuron{j}=min(para.I0,max(0,(1-para.eps).*neuron{j}+para.eps.*(weight{j-1}'*act(neuron{j-1})+weight_Inv{j}*act(neuron{j+1}))));
-%         neuron{j}=(1-eps).*neuron{j}+eps.*(weight{j-1}'*act(neuron{j-1})+weight_Inv{j}*act(neuron{j+1}));
-    end;
-    j=para.layer;
-    if beta==0
-        neuron{j}=min(para.I0,max(0,(1-para.eps).*neuron{j}+para.eps.*(weight{j-1}'*act(neuron{j-1}))));
-%         neuron{j}=(1-eps).*neuron{j}+eps.*(weight{j-1}'*act(neuron{j-1}));
-    elseif beta==-1
-        neuron{j}=observe;
-    else
-%        neuron{j}=min(para.I0,max(0,(1-para.eps).*neuron{j}+para.eps.*(weight{j-1}'*act(neuron{j-1})+para.eps.*beta*(para.I0*observe-neuron{j}))));
-%         neuron{j}=(1-eps).*neuron{j}+eps.*(weight{j-1}'*act(neuron{j-1})+eps.*beta*(observe-neuron{j}));
-         neuron{j}=min(para.I0,max(0,(1-para.eps).*neuron{j}+para.eps.*(weight{j-1}'*act(neuron{j-1})+para.eps.*beta*para.I0*(2*observe-1))));
-    end;
+for iTi=1:time
+    neuron=(1-eps)*neuron+eps*(weight*act(neuron)+repmat(b,1,size(neuron,2))+ipt_weight*ipt);
 end;
+
+otpt_nr=otpt_weight'*neuron;
 
 end
