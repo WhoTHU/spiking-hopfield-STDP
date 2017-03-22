@@ -11,7 +11,7 @@ para.window=50;
 para.dt=1;
 para.spike=0;
 para.I0=10;
-para.A_pos=[0.0005,0.0005];para.A_neg=para.A_pos.*1.012;
+para.A_pos=[0.0002,0.0002];para.A_neg=para.A_pos.*1.012;
 para.layer=3;
 para.n_layer=[32*32*3,200,10];
 para.weight_dec=0;
