@@ -69,6 +69,7 @@ for i=1:learn_time
         end;
         weit0(:,iT+1)=weit0(:,iT)+dW_0;
         weit(:,:,iT+1)=weit(:,:,iT)+dW;
+        weit(:,:,iT+1)=weit(:,:,iT+1)-diag(diag(weit(:,:,iT+1)));
     end;
 end;
 
