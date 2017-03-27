@@ -27,7 +27,7 @@ neg=cell(para.layer,1);
 pos=cell(para.layer,1);
 
 
-% [neuron]=flo(itr(1)*10,para,0,0,neuron);
+% [neuron]=flo(itr(1)*5,para,0,0,neuron);
 
 for iEpo=1:epo
 %     if iEpo==floor(epo/2)
@@ -82,7 +82,7 @@ for iEpo=1:epo
         [~,Ind]=max(neuron_t{layer});
         err_test(iEpo)=mean(Ind-1~=test_label);
         disp([err_train(iEpo),err_test(iEpo)]);
-        disp([mean(act(neuron{1}(:))),mean(act(neuron{2}(:))),mean(act(neuron{3}(:)))]);
+        disp([mean(act(neuron{1}(:))),mean(act(neuron{2}(:))),mean(act(neuron{3}(:))),mean(act(neuron{4}(:)))]);
     end;
 %    if mod(iEpo,10)==0
 %        save(['epoch_',num2str(iEpo),'.mat'],'weight','weight_Inv','neuron');

@@ -37,8 +37,8 @@ if ifreset
     for i=1:layer-1
 %         weight{i}=max(-gmax(i),min(gmax(i),random('norm',43/n_layer(i),43/n_layer(i),n_layer(i),n_layer(i+1))));
 %         weight_Inv{i}=max(-gmax_Inv(i),min(gmax_Inv(i),random('norm',0.1,0.1,n_layer(i),n_layer(i+1))));
-        weight{i}=max(gmin(i),min(gmax(i),random('norm',0,sqrt(4/(para.n_layer(i)+para.n_layer(i+1)))/0.037,n_layer(i),n_layer(i+1))));
-        weight_Inv{i}=max(gmin(i),min(gmax(i),random('norm',0,sqrt(4/(para.n_layer(i)+para.n_layer(i+1)))/0.037,n_layer(i),n_layer(i+1))));
+        weight{i}=max(gmin(i),min(gmax(i),random('norm',0,1.2,n_layer(i),n_layer(i+1))));
+        weight_Inv{i}=max(gmin_Inv(i),min(gmax_Inv(i),random('norm',0,1.2,n_layer(i),n_layer(i+1))));
 %         weight_Inv{i}=weight{i};
     end;
 end;

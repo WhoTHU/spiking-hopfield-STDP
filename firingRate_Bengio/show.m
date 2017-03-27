@@ -6,15 +6,33 @@ plot(test_fre:test_fre:epo,err_test(test_fre:test_fre:epo));
 ylim([0,1]);
 legend('train set','test set');
 
+
+for i=1:layer-1
+    figure;
+    subplot(2,1,1);
+    hist(weight{i}(:),gmin(i):(gmax(i)-gmin(i))/100:gmax(i));
+    subplot(2,1,2);
+    hist(weight_Inv{i}(:),gmin(i):(gmax_Inv(i)-gmin_Inv(i))/100:gmax_Inv(i));
+end;
+
+for i=1:layer-1
+    figure;
+    plot(1:epo,weight_his{i}(1:epo,randi(size(weight_his{i},2),1,10)));
+end;
+
 figure;
-subplot(2,2,1);
-hist(weight{1}(:),gmin(1):(gmax(1)-gmin(1))/100:gmax(1));
-subplot(2,2,2);
-hist(weight{2}(:),gmin(2):(gmax(2)-gmin(2))/100:gmax(2));
-subplot(2,2,3);
-hist(weight_Inv{1}(:),gmin(1):(gmax_Inv(1)-gmin_Inv(1))/100:gmax_Inv(1));
-subplot(2,2,4);
-hist(weight_Inv{2}(:),gmin(2):(gmax_Inv(2)-gmin_Inv(2))/100:gmax_Inv(2));
+for i=1:layer
+    subplot(layer,1,i);
+    hist(neuron{i}(:),0:para.I0/10:para.I0);
+end;
+
+
+for i=1:para.layer-1
+    figure;
+    hist(weight{i}(:),gmin(1):(gmax(1)-gmin(1))/100:gmax(1));
+    figure;
+    hist(weight_Inv{i}(:),gmin(1):(gmax(1)-gmin(1))/100:gmax(1));
+end;
 
 for i=1:layer-1
     figure;
@@ -26,51 +44,6 @@ for i=1:layer-1
     scatter(weight_his_Inv{i}(1,:),weight_his_Inv{i}(epo,:))
     subplot(2,2,4);
     hist(weight_his_Inv{i}(epo,:)-weight_his_Inv{i}(1,:),100)
-end;
-
-
-figure;
-subplot(3,1,1);
-hist(neuron_P{1}(:),0:para.I0/100:para.I0);
-subplot(3,1,2);
-hist(neuron_P{2}(:),0:para.I0/100:para.I0);
-subplot(3,1,3);
-hist(neuron_P{3}(:),0:para.I0/100:para.I0);
-
-for i=1:para.layer-1
-    figure;
-    hist(weight{i}(:),gmin(1):(gmax(1)-gmin(1))/100:gmax(1));
-    figure;
-    hist(weight_Inv{i}(:),gmin(1):(gmax(1)-gmin(1))/100:gmax(1));
-end;
-
-for i=1:para.layer
-    figure;
-    hist(neuron{i}(:),100);
-end;
-
-for iEpo=10:10:epo
-    load(['epoch_',num2str(iEpo),'.mat'])
-    figure;
-    hist(weight{2}(:),100);
-end;
-
-for iEpo=10:10:epo
-    load(['epoch_',num2str(iEpo),'.mat']);
-    [std(weight{1}(:)),std(weight{2}(:)),std(weight_Inv{1}(:)),std(weight_Inv{2}(:))]
-end;
-
-for iEpo=10:10:epo
-    load(['epoch_',num2str(iEpo),'.mat']);
-    figure;
-    subplot(2,2,1);
-    hist(weight{1}(:),gmin(1):(gmax(1)-gmin(1))/100:gmax(1));
-    subplot(2,2,2);
-    hist(weight{2}(:),gmin(2):(gmax(2)-gmin(2))/100:gmax(2));
-    subplot(2,2,3);
-    hist(weight_Inv{1}(:),gmin(1):(gmax(1)-gmin(1))/100:gmax(1));
-    subplot(2,2,4);
-    hist(weight_Inv{2}(:),gmin(2):(gmax(2)-gmin(2))/100:gmax(2));
 end;
 
 for i=1:layer-1

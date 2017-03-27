@@ -67,9 +67,8 @@ for i=1:learn_time
             dW_0=dW_0-para.A_STDP*S_0(:,iT-lambda/dt).*(sum(S(:,iT-(lambda+tau)/dt:1:iT-(lambda-tau)/dt)*sin(pi/tau*(-tau:dt:tau)')));
             dW=dW-para.A_STDP*S(:,iT-lambda/dt)*(sum(S(:,iT-(lambda+tau)/dt:1:iT-(lambda-tau)/dt)*sin(pi/tau*(-tau:dt:tau)')))';
         end;
-        weit0(:,iT+1)=weit0(:,iT)+max(-para.dW_range,min(para.dW_range,dW_0));
-        weit(:,:,iT+1)=weit(:,:,iT)+max(-para.dW_range,min(para.dW_range,dW));
-        weit(:,:,iT+1)=weit(:,:,iT+1)-diag(diag(weit(:,:,iT+1)));
+        weit0(:,iT+1)=weit0(:,iT)+dW_0;
+        weit(:,:,iT+1)=weit(:,:,iT)+dW;
     end;
 end;
 
